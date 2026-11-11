@@ -16,7 +16,6 @@ namespace OpsRelay.Api.Controllers.V1;
 /// </summary>
 [ApiController]
 [Route("api/v1/incidents")]
-[Produces("application/json")]
 public class IncidentsController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -71,7 +70,11 @@ public class IncidentsController : ControllerBase
 
         if (incident is null)
         {
-            return NotFound();
+            return Problem(
+                statusCode: StatusCodes.Status404NotFound,
+                title: "The requested resource was not found.",
+                detail: $"Incident '{id}' was not found.",
+                instance: Request.Path.Value);
         }
 
         return Ok(incident);

@@ -7,7 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-_No unreleased changes yet._
+### Fixed
+- Enum values (`Priority`, `IncidentStatus`) are now serialized as strings to
+  match the documented API/client contract, while integer enum input remains
+  accepted.
+- Validation error messages are pinned to `en-US` for deterministic API
+  responses independent of server culture.
+- `GET /api/v1/incidents/{id}` now returns RFC 7807
+  `application/problem+json` when the incident is missing.
+- Production Serilog configuration keeps information-level request logging
+  enabled while suppressing framework noise.
 
 ---
 

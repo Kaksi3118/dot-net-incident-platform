@@ -139,6 +139,7 @@ git config user.email "opsrelay-bot@build.local"
 | 2026-11-11 | OpsRelay Bot | T007 complete — Keep a Changelog 0.1.0 release notes and docs/git-workflow.md; annotated tag v0.1.0 created on develop |
 | 2026-11-11 | OpsRelay Bot | T008 complete — Swagger with XML docs, enum name/value schema filter and request/ProblemDetails examples; /swagger UI and swagger.json verified HTTP 200 |
 | 2026-11-11 | OpsRelay Bot | PHASE-01 complete — all T001-T008 done, build 0 errors / 0 warnings, tag v0.1.0 present. DB-backed integration verification deferred until Docker/SQL Server is available |
+| 2026-11-12 | OpsRelay Bot | PHASE-01 debug — SQL Server 2022 container, migration applied, full API lifecycle verified (health 200, POST 201 + Location + 4h Critical SLA, GET 200, PATCH 204, paging/filter, 400/404 ProblemDetails, rowversion + audit columns). Fixed enum serialization to strings, en-US validation messages, problem+json on GET 404, production log level |
 
 ---
 

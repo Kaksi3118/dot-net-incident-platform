@@ -38,7 +38,7 @@ public class SwaggerExampleFilter : IOperationFilter
             ["title"] = new OpenApiString("Database connection pool exhausted"),
             ["description"] = new OpenApiString(
                 "The primary SQL Server instance is rejecting new connections."),
-            ["priority"] = new OpenApiInteger(4),
+            ["priority"] = new OpenApiString("Critical"),
             ["assignedTeamId"] = new OpenApiString("SRE-Ops")
         };
     }
@@ -52,7 +52,7 @@ public class SwaggerExampleFilter : IOperationFilter
 
         mediaType.Example = new OpenApiObject
         {
-            ["newStatus"] = new OpenApiInteger(2),
+            ["newStatus"] = new OpenApiString("Triaged"),
             ["reason"] = new OpenApiString("Escalated to the on-call engineer.")
         };
     }
