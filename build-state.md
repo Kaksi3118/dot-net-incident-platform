@@ -62,7 +62,7 @@ git config user.email "opsrelay-bot@build.local"
 
 | Task | Title | Branch | Status | Last Updated |
 |------|-------|--------|--------|-------------|
-| T001 | Repository Init, Solution & .NET 6 csproj Setup | `feature/T001-repo-init` | 🔄 In Progress | 2026-11-11 |
+| T001 | Repository Init, Solution & .NET 6 csproj Setup | `feature/T001-repo-init` | ✅ Done | 2026-11-11 |
 | T002 | Domain Layer — Entities, Enums, Value Objects, Domain Events | `feature/T002-domain-layer` | ⬜ | — |
 | T003 | Infrastructure Layer — DbContext, EF Mappings, Repositories, Migrations | `feature/T003-infrastructure` | ⬜ | — |
 | T004 | Application Layer — CQRS, MediatR, FluentValidation, ISlaCalculator | `feature/T004-application-layer` | ⬜ | — |
@@ -130,6 +130,7 @@ git config user.email "opsrelay-bot@build.local"
 | Timestamp | Agent | Action |
 |-----------|-------|--------|
 | 2026-11-11 17:17 UTC | Coordinator | Project folder scaffolding created (all directories, .gitignore, .editorconfig, AGENTS.md, build-state.md, git config) |
+| 2026-11-11 | OpsRelay Bot | T001 complete — OpsRelay.sln with 6 net6.0 projects, clean-architecture references, NuGet baseline, global.json pinned to SDK 6.0.428; build 0 errors / 0 warnings |
 
 ---
 
