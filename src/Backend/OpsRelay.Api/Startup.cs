@@ -1,5 +1,7 @@
 using FluentValidation;
+using HealthChecks.UI.Client;
 using MediatR;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.EntityFrameworkCore;
 using OpsRelay.Api.Middleware;
 using OpsRelay.Application.Common.Behaviors;
@@ -9,6 +11,7 @@ using OpsRelay.Domain.Repositories;
 using OpsRelay.Infrastructure.Persistence;
 using OpsRelay.Infrastructure.Repositories;
 using OpsRelay.Infrastructure.Services;
+using Serilog;
 
 namespace OpsRelay.Api;
 
@@ -32,8 +35,19 @@ public class Startup
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
 
+        var connectionString = Configuration.GetConnectionString("DefaultConnection")
+            ?? throw new InvalidOperationException(
+                "Connection string 'DefaultConnection' is not configured.");
+
         services.AddDbContext<OpsRelayDbContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            options.UseSqlServer(connectionString));
+
+        services.AddHealthChecks()
+            .AddSqlServer(
+                connectionString,
+                name: "sqlserver",
+                timeout: TimeSpan.FromSeconds(5))
+            .AddDbContextCheck<OpsRelayDbContext>(name: "dbcontext");
 
         services.AddScoped<IIncidentRepository, IncidentRepository>();
         services.AddScoped<ISlaPolicyRepository, SlaPolicyRepository>();
@@ -49,6 +63,20 @@ public class Startup
             app.UseSwaggerUI();
         }
 
+        app.UseMiddleware<CorrelationIdMiddleware>();
+
+        app.UseSerilogRequestLogging(options =>
+        {
+            options.MessageTemplate =
+                "HTTP {RequestMethod} {RequestPath} responded {StatusCode} in {Elapsed:0.0000} ms";
+
+            options.EnrichDiagnosticContext = (diagnosticContext, httpContext) =>
+            {
+                diagnosticContext.Set("CorrelationId", httpContext.TraceIdentifier);
+                diagnosticContext.Set("RequestPath", httpContext.Request.Path.Value ?? string.Empty);
+            };
+        });
+
         app.UseMiddleware<ExceptionHandlingMiddleware>();
 
         app.UseHttpsRedirection();
@@ -58,6 +86,10 @@ public class Startup
         app.UseEndpoints(endpoints =>
         {
             endpoints.MapControllers();
+            endpoints.MapHealthChecks("/health", new HealthCheckOptions
+            {
+                ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+            });
         });
     }
 }
