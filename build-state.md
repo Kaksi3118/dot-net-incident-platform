@@ -66,7 +66,7 @@ git config user.email "opsrelay-bot@build.local"
 | T002 | Domain Layer — Entities, Enums, Value Objects, Domain Events | `feature/T002-domain-layer` | ✅ Done | 2026-11-11 |
 | T003 | Infrastructure Layer — DbContext, EF Mappings, Repositories, Migrations | `feature/T003-infrastructure` | ✅ Done | 2026-11-11 |
 | T004 | Application Layer — CQRS, MediatR, FluentValidation, ISlaCalculator | `feature/T004-application-layer` | ✅ Done | 2026-11-11 |
-| T005 | API Layer — .NET 6 Startup.cs, IncidentsController, ProblemDetails | `feature/T005-api-layer` | ⬜ | — |
+| T005 | API Layer — .NET 6 Startup.cs, IncidentsController, ProblemDetails | `feature/T005-api-layer` | ✅ Done | 2026-11-11 |
 | T006 | Configuration — appsettings, Serilog, Health Checks | `feature/T006-configuration` | ⬜ | — |
 | T007 | Git Tagging Strategy & CHANGELOG.md | `develop` | ⬜ | — |
 | T008 | Swagger / OpenAPI with Swashbuckle | `feature/T008-swagger` | ⬜ | — |
@@ -134,6 +134,7 @@ git config user.email "opsrelay-bot@build.local"
 | 2026-11-11 | OpsRelay Bot | T002 complete — Incident/SlaPolicy aggregates, enums, IncidentTitle/TeamId value objects, domain events, guard-clause validation; build 0 warnings |
 | 2026-11-11 | OpsRelay Bot | T003 complete — OpsRelayDbContext, fluent mappings, rowversion, shadow audits, seeded SLA policies, repositories, UnitOfWork, InitialCreate migration (SQL script verified) |
 | 2026-11-11 | OpsRelay Bot | T004 complete — CQRS commands/queries, MediatR validation+logging behaviors, FluentValidation validators, DTO mapping, baseline ISlaCalculator; build 0 warnings |
+| 2026-11-11 | OpsRelay Bot | T005 complete — classic Startup.cs + Program.cs, routed IncidentsController, RFC 7807 middleware; Swagger HTTP 200 smoke test passed. DB-backed endpoints pending Docker/SQL Server availability |
 
 ---
 
