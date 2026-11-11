@@ -1,3 +1,5 @@
+using System.Globalization;
+using System.Text.Json.Serialization;
 using FluentValidation;
 using HealthChecks.UI.Client;
 using MediatR;
@@ -27,7 +29,12 @@ public class Startup
 
     public void ConfigureServices(IServiceCollection services)
     {
-        services.AddControllers();
+        ValidatorOptions.Global.LanguageManager.Culture = CultureInfo.GetCultureInfo("en-US");
+
+        services.AddControllers()
+            .AddJsonOptions(options =>
+                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
+
         services.AddEndpointsApiExplorer();
         services.AddSwaggerDocumentation();
 
