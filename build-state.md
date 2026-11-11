@@ -69,7 +69,7 @@ git config user.email "opsrelay-bot@build.local"
 | T005 | API Layer — .NET 6 Startup.cs, IncidentsController, ProblemDetails | `feature/T005-api-layer` | ✅ Done | 2026-11-11 |
 | T006 | Configuration — appsettings, Serilog, Health Checks | `feature/T006-configuration` | ✅ Done | 2026-11-11 |
 | T007 | Git Tagging Strategy & CHANGELOG.md | `develop` | ✅ Done | 2026-11-11 |
-| T008 | Swagger / OpenAPI with Swashbuckle | `feature/T008-swagger` | ⬜ | — |
+| T008 | Swagger / OpenAPI with Swashbuckle | `feature/T008-swagger` | ✅ Done | 2026-11-11 |
 
 ### PHASE-02: .NET 6 → .NET 8 Modernization (target tag: v0.2.0)
 
@@ -137,6 +137,8 @@ git config user.email "opsrelay-bot@build.local"
 | 2026-11-11 | OpsRelay Bot | T005 complete — classic Startup.cs + Program.cs, routed IncidentsController, RFC 7807 middleware; Swagger HTTP 200 smoke test passed. DB-backed endpoints pending Docker/SQL Server availability |
 | 2026-11-11 | OpsRelay Bot | T006 complete — Serilog JSON console/file logging with CorrelationId, environment configs, /health SQL Server + DbContext checks. Health returns structured 503 JSON while SQL Server is unavailable |
 | 2026-11-11 | OpsRelay Bot | T007 complete — Keep a Changelog 0.1.0 release notes and docs/git-workflow.md; annotated tag v0.1.0 created on develop |
+| 2026-11-11 | OpsRelay Bot | T008 complete — Swagger with XML docs, enum name/value schema filter and request/ProblemDetails examples; /swagger UI and swagger.json verified HTTP 200 |
+| 2026-11-11 | OpsRelay Bot | PHASE-01 complete — all T001-T008 done, build 0 errors / 0 warnings, tag v0.1.0 present. DB-backed integration verification deferred until Docker/SQL Server is available |
 
 ---
 

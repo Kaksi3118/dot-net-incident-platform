@@ -11,8 +11,11 @@ using OpsRelay.Domain.Enums;
 
 namespace OpsRelay.Api.Controllers.V1;
 
+/// <summary>
+/// Manages the incident lifecycle, including creation, retrieval and status changes.
+/// </summary>
 [ApiController]
-[Route("api/v1/[controller]")]
+[Route("api/v1/incidents")]
 [Produces("application/json")]
 public class IncidentsController : ControllerBase
 {
@@ -25,6 +28,13 @@ public class IncidentsController : ControllerBase
         _logger = logger;
     }
 
+    /// <summary>
+    /// Returns a paginated list of incidents, optionally filtered by status.
+    /// </summary>
+    /// <param name="pageNumber">One-based page number.</param>
+    /// <param name="pageSize">Number of records per page (1-100).</param>
+    /// <param name="status">Optional incident status filter.</param>
+    /// <param name="cancellationToken">Request cancellation token.</param>
     [HttpGet]
     [ProducesResponseType(typeof(PagedResultDto<IncidentDto>), StatusCodes.Status200OK)]
     public async Task<ActionResult<PagedResultDto<IncidentDto>>> GetPaged(
@@ -43,9 +53,14 @@ public class IncidentsController : ControllerBase
         return Ok(result);
     }
 
+    /// <summary>
+    /// Returns a single incident by its identifier.
+    /// </summary>
+    /// <param name="id">Incident identifier.</param>
+    /// <param name="cancellationToken">Request cancellation token.</param>
     [HttpGet("{id:guid}")]
     [ProducesResponseType(typeof(IncidentDto), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     public async Task<ActionResult<IncidentDto>> GetById(
         Guid id,
         CancellationToken cancellationToken = default)
@@ -62,9 +77,14 @@ public class IncidentsController : ControllerBase
         return Ok(incident);
     }
 
+    /// <summary>
+    /// Creates a new incident and calculates its SLA deadline from the matching policy.
+    /// </summary>
+    /// <param name="request">Incident details.</param>
+    /// <param name="cancellationToken">Request cancellation token.</param>
     [HttpPost]
     [ProducesResponseType(typeof(IncidentDto), StatusCodes.Status201Created)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<IncidentDto>> Create(
         [FromBody] CreateIncidentRequest request,
         CancellationToken cancellationToken = default)
@@ -82,10 +102,16 @@ public class IncidentsController : ControllerBase
         return CreatedAtAction(nameof(GetById), new { id = incident.Id }, incident);
     }
 
+    /// <summary>
+    /// Changes the lifecycle status of an incident.
+    /// </summary>
+    /// <param name="id">Incident identifier.</param>
+    /// <param name="request">Requested status and optional reason.</param>
+    /// <param name="cancellationToken">Request cancellation token.</param>
     [HttpPatch("{id:guid}/status")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> UpdateStatus(
         Guid id,
         [FromBody] UpdateStatusRequest request,

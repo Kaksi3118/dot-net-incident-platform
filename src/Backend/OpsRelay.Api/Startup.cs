@@ -3,6 +3,7 @@ using HealthChecks.UI.Client;
 using MediatR;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.EntityFrameworkCore;
+using OpsRelay.Api.Extensions;
 using OpsRelay.Api.Middleware;
 using OpsRelay.Application.Common.Behaviors;
 using OpsRelay.Application.Common.Interfaces;
@@ -28,7 +29,7 @@ public class Startup
     {
         services.AddControllers();
         services.AddEndpointsApiExplorer();
-        services.AddSwaggerGen();
+        services.AddSwaggerDocumentation();
 
         services.AddMediatR(typeof(CreateIncidentCommand).Assembly);
         services.AddValidatorsFromAssembly(typeof(CreateIncidentCommand).Assembly);
@@ -59,8 +60,7 @@ public class Startup
     {
         if (env.IsDevelopment())
         {
-            app.UseSwagger();
-            app.UseSwaggerUI();
+            app.UseSwaggerDocumentation();
         }
 
         app.UseMiddleware<CorrelationIdMiddleware>();
