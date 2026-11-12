@@ -5,27 +5,17 @@ using OpsRelay.Domain.Repositories;
 
 namespace OpsRelay.Application.Incidents.Commands.UpdateIncidentStatus;
 
-public class UpdateIncidentStatusCommandHandler : IRequestHandler<UpdateIncidentStatusCommand>
+public class UpdateIncidentStatusCommandHandler(
+    IIncidentRepository incidentRepository,
+    IUnitOfWork unitOfWork,
+    ILogger<UpdateIncidentStatusCommandHandler> logger)
+    : IRequestHandler<UpdateIncidentStatusCommand>
 {
-    private readonly IIncidentRepository _incidentRepository;
-    private readonly IUnitOfWork _unitOfWork;
-    private readonly ILogger<UpdateIncidentStatusCommandHandler> _logger;
-
-    public UpdateIncidentStatusCommandHandler(
-        IIncidentRepository incidentRepository,
-        IUnitOfWork unitOfWork,
-        ILogger<UpdateIncidentStatusCommandHandler> logger)
-    {
-        _incidentRepository = incidentRepository;
-        _unitOfWork = unitOfWork;
-        _logger = logger;
-    }
-
     public async Task Handle(
         UpdateIncidentStatusCommand request,
         CancellationToken cancellationToken)
     {
-        var incident = await _incidentRepository.GetByIdAsync(request.Id, cancellationToken);
+        var incident = await incidentRepository.GetByIdAsync(request.Id, cancellationToken);
 
         if (incident is null)
         {
@@ -34,10 +24,10 @@ public class UpdateIncidentStatusCommandHandler : IRequestHandler<UpdateIncident
 
         incident.ChangeStatus(request.NewStatus, request.Reason, DateTimeOffset.UtcNow);
 
-        _incidentRepository.Update(incident);
-        await _unitOfWork.CommitAsync(cancellationToken);
+        incidentRepository.Update(incident);
+        await unitOfWork.CommitAsync(cancellationToken);
 
-        _logger.LogInformation(
+        logger.LogInformation(
             "Incident {IncidentId} status changed to {Status}",
             incident.Id,
             incident.Status);

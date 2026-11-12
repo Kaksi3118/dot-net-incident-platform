@@ -10,36 +10,21 @@ using OpsRelay.Domain.ValueObjects;
 
 namespace OpsRelay.Application.Incidents.Commands.CreateIncident;
 
-public class CreateIncidentCommandHandler
+public class CreateIncidentCommandHandler(
+    IIncidentRepository incidentRepository,
+    ISlaPolicyRepository slaPolicyRepository,
+    ISlaCalculator slaCalculator,
+    IUnitOfWork unitOfWork,
+    ILogger<CreateIncidentCommandHandler> logger)
     : IRequestHandler<CreateIncidentCommand, IncidentDto>
 {
-    private readonly IIncidentRepository _incidentRepository;
-    private readonly ISlaPolicyRepository _slaPolicyRepository;
-    private readonly ISlaCalculator _slaCalculator;
-    private readonly IUnitOfWork _unitOfWork;
-    private readonly ILogger<CreateIncidentCommandHandler> _logger;
-
-    public CreateIncidentCommandHandler(
-        IIncidentRepository incidentRepository,
-        ISlaPolicyRepository slaPolicyRepository,
-        ISlaCalculator slaCalculator,
-        IUnitOfWork unitOfWork,
-        ILogger<CreateIncidentCommandHandler> logger)
-    {
-        _incidentRepository = incidentRepository;
-        _slaPolicyRepository = slaPolicyRepository;
-        _slaCalculator = slaCalculator;
-        _unitOfWork = unitOfWork;
-        _logger = logger;
-    }
-
     public async Task<IncidentDto> Handle(
         CreateIncidentCommand request,
         CancellationToken cancellationToken)
     {
         var reportedAt = DateTimeOffset.UtcNow;
 
-        var policy = await _slaPolicyRepository.GetByPriorityAsync(
+        var policy = await slaPolicyRepository.GetByPriorityAsync(
             request.Priority,
             cancellationToken);
 
@@ -49,7 +34,7 @@ public class CreateIncidentCommandHandler
                 $"No SLA policy is configured for priority '{request.Priority}'.");
         }
 
-        var slaDeadline = _slaCalculator.CalculateDeadline(reportedAt, policy);
+        var slaDeadline = slaCalculator.CalculateDeadline(reportedAt, policy);
 
         var incident = new Incident(
             Guid.NewGuid(),
@@ -60,10 +45,10 @@ public class CreateIncidentCommandHandler
             reportedAt,
             slaDeadline);
 
-        await _incidentRepository.AddAsync(incident, cancellationToken);
-        await _unitOfWork.CommitAsync(cancellationToken);
+        await incidentRepository.AddAsync(incident, cancellationToken);
+        await unitOfWork.CommitAsync(cancellationToken);
 
-        _logger.LogInformation(
+        logger.LogInformation(
             "Incident {IncidentId} created with priority {Priority} and SLA deadline {SlaDeadline}",
             incident.Id,
             incident.Priority,

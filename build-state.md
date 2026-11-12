@@ -77,7 +77,7 @@ git config user.email "opsrelay-bot@build.local"
 |------|-------|--------|--------|-------------|
 | T009 | Create migration branch, upgrade .csproj & NuGet packages | `migration/net6-to-net8` | ✅ Done | 2026-11-12 |
 | T010 | Dissolve Startup.cs → Program.cs with extension methods | `migration/net6-to-net8` | ✅ Done | 2026-11-12 |
-| T011 | C# 12 Primary Constructors refactor across all services | `migration/net6-to-net8` | ⬜ | — |
+| T011 | C# 12 Primary Constructors refactor across all services | `migration/net6-to-net8` | ✅ Done | 2026-11-12 |
 | T012 | Collection expressions — replace legacy collection syntax | `migration/net6-to-net8` | ⬜ | — |
 | T013 | TimeProvider modernization — replace DateTime.UtcNow | `migration/net6-to-net8` | ⬜ | — |
 | T014 | EF Core 8 upgrades — split queries, bulk ops, JSON columns | `migration/net6-to-net8` | ⬜ | — |
@@ -142,6 +142,7 @@ git config user.email "opsrelay-bot@build.local"
 | 2026-11-12 | OpsRelay Bot | PHASE-01 debug — SQL Server 2022 container, migration applied, full API lifecycle verified (health 200, POST 201 + Location + 4h Critical SLA, GET 200, PATCH 204, paging/filter, 400/404 ProblemDetails, rowversion + audit columns). Fixed enum serialization to strings, en-US validation messages, problem+json on GET 404, production log level |
 | 2026-11-12 | OpsRelay Bot | PHASE-02 T009 complete — migration branch, Directory.Build.props net8.0/C# 12/latest-recommended analyzers, SDK 8.0.428, EF Core 8.0.2, MediatR 12.2.0, FluentValidation 11.9.0, Serilog 8.0.1, xUnit 2.6.6; MediatR 12 handler/DI breaking changes reconciled |
 | 2026-11-12 | OpsRelay Bot | PHASE-02 T010 complete — Startup.cs removed, minimal hosting Program.cs, AddApplicationServices/AddInfrastructureServices/AddApiServices extensions; .NET 8 API + Swagger smoke test passed |
+| 2026-11-12 | OpsRelay Bot | PHASE-02 T011 complete — C# 12 primary constructors across handlers, repositories, UnitOfWork and IncidentsController; DI boilerplate removed |
 
 ---
 

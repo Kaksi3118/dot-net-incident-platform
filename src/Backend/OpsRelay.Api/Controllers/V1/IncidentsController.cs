@@ -16,16 +16,10 @@ namespace OpsRelay.Api.Controllers.V1;
 /// </summary>
 [ApiController]
 [Route("api/v1/incidents")]
-public class IncidentsController : ControllerBase
+public class IncidentsController(
+    IMediator mediator,
+    ILogger<IncidentsController> logger) : ControllerBase
 {
-    private readonly IMediator _mediator;
-    private readonly ILogger<IncidentsController> _logger;
-
-    public IncidentsController(IMediator mediator, ILogger<IncidentsController> logger)
-    {
-        _mediator = mediator;
-        _logger = logger;
-    }
 
     /// <summary>
     /// Returns a paginated list of incidents, optionally filtered by status.
@@ -45,7 +39,7 @@ public class IncidentsController : ControllerBase
         pageNumber = Math.Max(pageNumber, 1);
         pageSize = Math.Clamp(pageSize, 1, 100);
 
-        var result = await _mediator.Send(
+        var result = await mediator.Send(
             new GetIncidentsPagedQuery(pageNumber, pageSize, status),
             cancellationToken);
 
@@ -64,7 +58,7 @@ public class IncidentsController : ControllerBase
         Guid id,
         CancellationToken cancellationToken = default)
     {
-        var incident = await _mediator.Send(
+        var incident = await mediator.Send(
             new GetIncidentByIdQuery(id),
             cancellationToken);
 
@@ -92,7 +86,7 @@ public class IncidentsController : ControllerBase
         [FromBody] CreateIncidentRequest request,
         CancellationToken cancellationToken = default)
     {
-        var incident = await _mediator.Send(
+        var incident = await mediator.Send(
             new CreateIncidentCommand(
                 request.Title,
                 request.Description,
@@ -100,7 +94,7 @@ public class IncidentsController : ControllerBase
                 request.AssignedTeamId),
             cancellationToken);
 
-        _logger.LogInformation("Incident {IncidentId} created through the API", incident.Id);
+        logger.LogInformation("Incident {IncidentId} created through the API", incident.Id);
 
         return CreatedAtAction(nameof(GetById), new { id = incident.Id }, incident);
     }
@@ -120,7 +114,7 @@ public class IncidentsController : ControllerBase
         [FromBody] UpdateStatusRequest request,
         CancellationToken cancellationToken = default)
     {
-        await _mediator.Send(
+        await mediator.Send(
             new UpdateIncidentStatusCommand(id, request.NewStatus, request.Reason),
             cancellationToken);
 

@@ -6,17 +6,10 @@ using OpsRelay.Infrastructure.Persistence;
 
 namespace OpsRelay.Infrastructure.Repositories;
 
-public class IncidentRepository : IIncidentRepository
+public class IncidentRepository(OpsRelayDbContext dbContext) : IIncidentRepository
 {
-    private readonly OpsRelayDbContext _dbContext;
-
-    public IncidentRepository(OpsRelayDbContext dbContext)
-    {
-        _dbContext = dbContext;
-    }
-
     public Task<Incident?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default) =>
-        _dbContext.Incidents.FirstOrDefaultAsync(
+        dbContext.Incidents.FirstOrDefaultAsync(
             incident => incident.Id == id,
             cancellationToken);
 
@@ -26,7 +19,7 @@ public class IncidentRepository : IIncidentRepository
         IncidentStatus? status,
         CancellationToken cancellationToken = default)
     {
-        var query = _dbContext.Incidents.AsNoTracking().AsQueryable();
+        var query = dbContext.Incidents.AsNoTracking().AsQueryable();
 
         if (status.HasValue)
         {
@@ -45,7 +38,7 @@ public class IncidentRepository : IIncidentRepository
     }
 
     public async Task AddAsync(Incident incident, CancellationToken cancellationToken = default) =>
-        await _dbContext.Incidents.AddAsync(incident, cancellationToken);
+        await dbContext.Incidents.AddAsync(incident, cancellationToken);
 
-    public void Update(Incident incident) => _dbContext.Incidents.Update(incident);
+    public void Update(Incident incident) => dbContext.Incidents.Update(incident);
 }
