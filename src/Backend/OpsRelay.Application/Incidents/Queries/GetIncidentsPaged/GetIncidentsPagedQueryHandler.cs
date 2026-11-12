@@ -19,7 +19,7 @@ public class GetIncidentsPagedQueryHandler(IIncidentRepository incidentRepositor
             request.Status,
             cancellationToken);
 
-        var dtos = items.Select(incident => incident.ToDto()).ToList();
+        List<IncidentDto> dtos = [.. items.Select(incident => incident.ToDto())];
 
         return new PagedResultDto<IncidentDto>(
             dtos,
