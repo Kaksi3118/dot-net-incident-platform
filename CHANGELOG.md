@@ -7,16 +7,65 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+_No unreleased changes yet._
+
+---
+
+## [0.2.0] - 2026-11-12
+
+.NET 8 LTS and C# 12 modernization of the OpsRelay backend.
+
+### Added
+- `Directory.Build.props` centralizing `net8.0`, C# 12, nullable, implicit
+  usings, warnings-as-errors and recommended analyzers.
+- Layer-specific DI extensions `AddApplicationServices`,
+  `AddInfrastructureServices` and `AddApiServices`.
+- `BulkUpdateStatusAsync` using EF Core 8 `ExecuteUpdateAsync` to bypass the
+  change tracker for bulk status changes.
+- `OutboxMessages` table with EF Core 8 JSON-owned metadata mapping.
+- `FakeTimeProvider` test helper for deterministic time travel.
+- ADR-001 migration decision record, step-by-step migration playbook and an
+  enterprise pull request template.
+
+### Changed
+- **BREAKING**: target framework upgraded from `net6.0` to `net8.0`; SDK pinned
+  to `8.0.428`; language version raised to C# 12.
+- **BREAKING**: `Startup.cs` replaced by minimal hosting in `Program.cs`.
+- EF Core upgraded 6.0.25 to 8.0.2 with global split-query behavior.
+- MediatR upgraded 11.1.0 to 12.2.0, including assembly registration and
+  non-generic handler return type changes.
+- FluentValidation upgraded to 11.9.0, Serilog.AspNetCore to 8.0.1, xunit to
+  2.6.6 and NSubstitute to 5.1.0.
+- Handlers, repositories, `UnitOfWork` and `IncidentsController` use C# 12
+  primary constructors.
+- Collection initialization uses C# 12 collection expressions.
+- Business and persistence code uses `TimeProvider.GetUtcNow()` instead of
+  ambient `DateTimeOffset.UtcNow`.
+
+### Removed
+- `Startup.cs`.
+- `MediatR.Extensions.Microsoft.DependencyInjection` package (merged into
+  MediatR 12).
+- Ambient time calls from business and persistence logic.
+- `new List<T>()` and `Array.Empty<T>()` in refactored paths.
+
 ### Fixed
-- Enum values (`Priority`, `IncidentStatus`) are now serialized as strings to
-  match the documented API/client contract, while integer enum input remains
+- Enum values (`Priority`, `IncidentStatus`) are serialized as strings to match
+  the documented API/client contract, while integer enum input remains
   accepted.
-- Validation error messages are pinned to `en-US` for deterministic API
-  responses independent of server culture.
-- `GET /api/v1/incidents/{id}` now returns RFC 7807
-  `application/problem+json` when the incident is missing.
+- Validation error messages are pinned to `en-US` for deterministic responses
+  independent of server culture.
+- `GET /api/v1/incidents/{id}` returns RFC 7807 `application/problem+json` when
+  the incident is missing.
 - Production Serilog configuration keeps information-level request logging
   enabled while suppressing framework noise.
+
+### Performance
+- Global `QuerySplittingBehavior.SplitQuery` prevents Cartesian product
+  explosion on multi-collection queries.
+- Bulk status updates execute as a single direct `UPDATE` with zero tracked
+  entities.
+- Outbox metadata is stored in a JSON column, eliminating a metadata join.
 
 ---
 
@@ -82,5 +131,6 @@ Initial .NET 6 Clean Architecture baseline release.
 
 ---
 
-[Unreleased]: https://github.com/opsrelay/opsrelay/compare/v0.1.0...HEAD
-[0.1.0]: https://github.com/opsrelay/opsrelay/releases/tag/v0.1.0
+[Unreleased]: https://github.com/Kaksi3118/dot-net-incident-platform/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/Kaksi3118/dot-net-incident-platform/compare/v0.1.0...v0.2.0
+[0.1.0]: https://github.com/Kaksi3118/dot-net-incident-platform/releases/tag/v0.1.0

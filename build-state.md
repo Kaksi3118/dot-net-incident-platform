@@ -82,7 +82,7 @@ git config user.email "opsrelay-bot@build.local"
 | T013 | TimeProvider modernization — replace DateTime.UtcNow | `migration/net6-to-net8` | ✅ Done | 2026-11-12 |
 | T014 | EF Core 8 upgrades — split queries, bulk ops, JSON columns | `migration/net6-to-net8` | ✅ Done | 2026-11-12 |
 | T015 | PR documentation & ADR-001 | `migration/net6-to-net8` | ✅ Done | 2026-11-12 |
-| T016 | Tag v0.2.0, merge migration branch, update CHANGELOG | `develop` | ⬜ | — |
+| T016 | Tag v0.2.0, merge migration branch, update CHANGELOG | `develop` | ✅ Done | 2026-11-12 |
 
 ### PHASE-03: SLA Calculation Engine & Domain Logic (target tag: v0.3.0)
 
@@ -147,6 +147,7 @@ git config user.email "opsrelay-bot@build.local"
 | 2026-11-12 | OpsRelay Bot | PHASE-02 T013 complete — TimeProvider.System registered in DI, all business/persistence UtcNow calls replaced, FakeTimeProvider test helper added |
 | 2026-11-12 | OpsRelay Bot | PHASE-02 T014 complete — global split queries, BulkUpdateStatusAsync via ExecuteUpdateAsync, OutboxMessage JSON mapping + migration; verified JSON roundtrip, tracker bypass and full .NET 8 API lifecycle against SQL Server 2022 |
 | 2026-11-12 | OpsRelay Bot | PHASE-02 T015 complete — MADR ADR-001, step-by-step migration playbook and enterprise PR template with risk/verification sections |
+| 2026-11-12 | OpsRelay Bot | PHASE-02 T016 complete — CHANGELOG 0.2.0, migration branch merged with --no-ff into develop, annotated tag v0.2.0 created. Build Release 0 errors/0 warnings, full .NET 8 lifecycle verified |
 
 ---
 
