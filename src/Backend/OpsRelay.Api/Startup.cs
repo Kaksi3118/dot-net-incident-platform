@@ -38,10 +38,13 @@ public class Startup
         services.AddEndpointsApiExplorer();
         services.AddSwaggerDocumentation();
 
-        services.AddMediatR(typeof(CreateIncidentCommand).Assembly);
+        services.AddMediatR(configuration =>
+        {
+            configuration.RegisterServicesFromAssembly(typeof(CreateIncidentCommand).Assembly);
+            configuration.AddBehavior(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+            configuration.AddBehavior(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
+        });
         services.AddValidatorsFromAssembly(typeof(CreateIncidentCommand).Assembly);
-        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
-        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
 
         var connectionString = Configuration.GetConnectionString("DefaultConnection")
             ?? throw new InvalidOperationException(

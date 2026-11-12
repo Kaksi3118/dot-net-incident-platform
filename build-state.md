@@ -75,7 +75,7 @@ git config user.email "opsrelay-bot@build.local"
 
 | Task | Title | Branch | Status | Last Updated |
 |------|-------|--------|--------|-------------|
-| T009 | Create migration branch, upgrade .csproj & NuGet packages | `migration/net6-to-net8` | ⬜ | — |
+| T009 | Create migration branch, upgrade .csproj & NuGet packages | `migration/net6-to-net8` | ✅ Done | 2026-11-12 |
 | T010 | Dissolve Startup.cs → Program.cs with extension methods | `migration/net6-to-net8` | ⬜ | — |
 | T011 | C# 12 Primary Constructors refactor across all services | `migration/net6-to-net8` | ⬜ | — |
 | T012 | Collection expressions — replace legacy collection syntax | `migration/net6-to-net8` | ⬜ | — |
@@ -140,6 +140,7 @@ git config user.email "opsrelay-bot@build.local"
 | 2026-11-11 | OpsRelay Bot | T008 complete — Swagger with XML docs, enum name/value schema filter and request/ProblemDetails examples; /swagger UI and swagger.json verified HTTP 200 |
 | 2026-11-11 | OpsRelay Bot | PHASE-01 complete — all T001-T008 done, build 0 errors / 0 warnings, tag v0.1.0 present. DB-backed integration verification deferred until Docker/SQL Server is available |
 | 2026-11-12 | OpsRelay Bot | PHASE-01 debug — SQL Server 2022 container, migration applied, full API lifecycle verified (health 200, POST 201 + Location + 4h Critical SLA, GET 200, PATCH 204, paging/filter, 400/404 ProblemDetails, rowversion + audit columns). Fixed enum serialization to strings, en-US validation messages, problem+json on GET 404, production log level |
+| 2026-11-12 | OpsRelay Bot | PHASE-02 T009 complete — migration branch, Directory.Build.props net8.0/C# 12/latest-recommended analyzers, SDK 8.0.428, EF Core 8.0.2, MediatR 12.2.0, FluentValidation 11.9.0, Serilog 8.0.1, xUnit 2.6.6; MediatR 12 handler/DI breaking changes reconciled |
 
 ---
 

@@ -21,7 +21,7 @@ public class UpdateIncidentStatusCommandHandler : IRequestHandler<UpdateIncident
         _logger = logger;
     }
 
-    public async Task<Unit> Handle(
+    public async Task Handle(
         UpdateIncidentStatusCommand request,
         CancellationToken cancellationToken)
     {
@@ -41,7 +41,5 @@ public class UpdateIncidentStatusCommandHandler : IRequestHandler<UpdateIncident
             "Incident {IncidentId} status changed to {Status}",
             incident.Id,
             incident.Status);
-
-        return Unit.Value;
     }
 }
