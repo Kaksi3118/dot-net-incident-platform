@@ -64,12 +64,12 @@ git config user.email "opsrelay-bot@build.local"
 |------|-------|--------|--------|-------------|
 | T001 | Repository Init, Solution & .NET 6 csproj Setup | `feature/T001-repo-init` | ✅ Done | 2026-11-11 |
 | T002 | Domain Layer — Entities, Enums, Value Objects, Domain Events | `feature/T002-domain-layer` | ✅ Done | 2026-11-11 |
-| T003 | Infrastructure Layer — DbContext, EF Mappings, Repositories, Migrations | `feature/T003-infrastructure` | ✅ Done | 2026-11-11 |
-| T004 | Application Layer — CQRS, MediatR, FluentValidation, ISlaCalculator | `feature/T004-application-layer` | ✅ Done | 2026-11-11 |
-| T005 | API Layer — .NET 6 Startup.cs, IncidentsController, ProblemDetails | `feature/T005-api-layer` | ✅ Done | 2026-11-11 |
-| T006 | Configuration — appsettings, Serilog, Health Checks | `feature/T006-configuration` | ✅ Done | 2026-11-11 |
+| T003 | Infrastructure Layer — DbContext, EF Mappings, Repositories, Migrations | `feature/T003-infrastructure-persistence` | ✅ Done | 2026-11-11 |
+| T004 | Application Layer — CQRS, MediatR, FluentValidation, ISlaCalculator | `feature/T004-application-cqrs` | ✅ Done | 2026-11-11 |
+| T005 | API Layer — .NET 6 Startup.cs, IncidentsController, ProblemDetails | `feature/T005-api-controller-startup` | ✅ Done | 2026-11-11 |
+| T006 | Configuration — appsettings, Serilog, Health Checks | `feature/T006-config-logging-health` | ✅ Done | 2026-11-11 |
 | T007 | Git Tagging Strategy & CHANGELOG.md | `develop` | ✅ Done | 2026-11-11 |
-| T008 | Swagger / OpenAPI with Swashbuckle | `feature/T008-swagger` | ✅ Done | 2026-11-11 |
+| T008 | Swagger / OpenAPI with Swashbuckle | `feature/T008-swagger-docs` | ✅ Done | 2026-11-11 |
 
 ### PHASE-02: .NET 6 → .NET 8 Modernization (target tag: v0.2.0)
 
@@ -149,6 +149,7 @@ git config user.email "opsrelay-bot@build.local"
 | 2026-11-12 | OpsRelay Bot | PHASE-02 T015 complete — MADR ADR-001, step-by-step migration playbook and enterprise PR template with risk/verification sections |
 | 2026-11-12 | OpsRelay Bot | PHASE-02 T016 complete — CHANGELOG 0.2.0, migration branch merged with --no-ff into develop, annotated tag v0.2.0 created. Build Release 0 errors/0 warnings, full .NET 8 lifecycle verified |
 | 2026-11-12 | OpsRelay Bot | PHASE-02 debug — fake-time handler/audit test, minimal hosting WebApplicationFactory lifecycle + negative-path test, outbox JSON and ExecuteUpdate checks all passed; cleaned docs snippet, ADR metric and duplicate PR template |
+| 2026-11-12 | OpsRelay Bot | PHASE-01/02 cross-audit — acceptance criteria re-checked against tags v0.1.0/v0.2.0. Domain invariants, value equality, seeded SLA policies, repository/UnitOfWork persistence, shadow audits, paging, Swagger, health and full HTTP lifecycle all pass. State-file branch names corrected. Note: v0.1.0 tag was created at T007 per plan, so it does not include T008; Phase 2 branch included the post-tag Phase 1 debug fixes |
 
 ---
 
