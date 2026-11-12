@@ -75,14 +75,14 @@ git config user.email "opsrelay-bot@build.local"
 
 | Task | Title | Branch | Status | Last Updated |
 |------|-------|--------|--------|-------------|
-| T009 | Create migration branch, upgrade .csproj & NuGet packages | `migration/net6-to-net8` | ⬜ | — |
-| T010 | Dissolve Startup.cs → Program.cs with extension methods | `migration/net6-to-net8` | ⬜ | — |
-| T011 | C# 12 Primary Constructors refactor across all services | `migration/net6-to-net8` | ⬜ | — |
-| T012 | Collection expressions — replace legacy collection syntax | `migration/net6-to-net8` | ⬜ | — |
-| T013 | TimeProvider modernization — replace DateTime.UtcNow | `migration/net6-to-net8` | ⬜ | — |
-| T014 | EF Core 8 upgrades — split queries, bulk ops, JSON columns | `migration/net6-to-net8` | ⬜ | — |
-| T015 | PR documentation & ADR-001 | `migration/net6-to-net8` | ⬜ | — |
-| T016 | Tag v0.2.0, merge migration branch, update CHANGELOG | `develop` | ⬜ | — |
+| T009 | Create migration branch, upgrade .csproj & NuGet packages | `migration/net6-to-net8` | ✅ Done | 2026-11-12 |
+| T010 | Dissolve Startup.cs → Program.cs with extension methods | `migration/net6-to-net8` | ✅ Done | 2026-11-12 |
+| T011 | C# 12 Primary Constructors refactor across all services | `migration/net6-to-net8` | ✅ Done | 2026-11-12 |
+| T012 | Collection expressions — replace legacy collection syntax | `migration/net6-to-net8` | ✅ Done | 2026-11-12 |
+| T013 | TimeProvider modernization — replace DateTime.UtcNow | `migration/net6-to-net8` | ✅ Done | 2026-11-12 |
+| T014 | EF Core 8 upgrades — split queries, bulk ops, JSON columns | `migration/net6-to-net8` | ✅ Done | 2026-11-12 |
+| T015 | PR documentation & ADR-001 | `migration/net6-to-net8` | ✅ Done | 2026-11-12 |
+| T016 | Tag v0.2.0, merge migration branch, update CHANGELOG | `develop` | ✅ Done | 2026-11-12 |
 
 ### PHASE-03: SLA Calculation Engine & Domain Logic (target tag: v0.3.0)
 
@@ -140,6 +140,14 @@ git config user.email "opsrelay-bot@build.local"
 | 2026-11-11 | OpsRelay Bot | T008 complete — Swagger with XML docs, enum name/value schema filter and request/ProblemDetails examples; /swagger UI and swagger.json verified HTTP 200 |
 | 2026-11-11 | OpsRelay Bot | PHASE-01 complete — all T001-T008 done, build 0 errors / 0 warnings, tag v0.1.0 present. DB-backed integration verification deferred until Docker/SQL Server is available |
 | 2026-11-12 | OpsRelay Bot | PHASE-01 debug — SQL Server 2022 container, migration applied, full API lifecycle verified (health 200, POST 201 + Location + 4h Critical SLA, GET 200, PATCH 204, paging/filter, 400/404 ProblemDetails, rowversion + audit columns). Fixed enum serialization to strings, en-US validation messages, problem+json on GET 404, production log level |
+| 2026-11-12 | OpsRelay Bot | PHASE-02 T009 complete — migration branch, Directory.Build.props net8.0/C# 12/latest-recommended analyzers, SDK 8.0.428, EF Core 8.0.2, MediatR 12.2.0, FluentValidation 11.9.0, Serilog 8.0.1, xUnit 2.6.6; MediatR 12 handler/DI breaking changes reconciled |
+| 2026-11-12 | OpsRelay Bot | PHASE-02 T010 complete — Startup.cs removed, minimal hosting Program.cs, AddApplicationServices/AddInfrastructureServices/AddApiServices extensions; .NET 8 API + Swagger smoke test passed |
+| 2026-11-12 | OpsRelay Bot | PHASE-02 T011 complete — C# 12 primary constructors across handlers, repositories, UnitOfWork and IncidentsController; DI boilerplate removed |
+| 2026-11-12 | OpsRelay Bot | PHASE-02 T012 complete — C# 12 collection expressions in AggregateRoot, Incident rowversion, ValidationBehavior and paged query handler |
+| 2026-11-12 | OpsRelay Bot | PHASE-02 T013 complete — TimeProvider.System registered in DI, all business/persistence UtcNow calls replaced, FakeTimeProvider test helper added |
+| 2026-11-12 | OpsRelay Bot | PHASE-02 T014 complete — global split queries, BulkUpdateStatusAsync via ExecuteUpdateAsync, OutboxMessage JSON mapping + migration; verified JSON roundtrip, tracker bypass and full .NET 8 API lifecycle against SQL Server 2022 |
+| 2026-11-12 | OpsRelay Bot | PHASE-02 T015 complete — MADR ADR-001, step-by-step migration playbook and enterprise PR template with risk/verification sections |
+| 2026-11-12 | OpsRelay Bot | PHASE-02 T016 complete — CHANGELOG 0.2.0, migration branch merged with --no-ff into develop, annotated tag v0.2.0 created. Build Release 0 errors/0 warnings, full .NET 8 lifecycle verified |
 
 ---
 

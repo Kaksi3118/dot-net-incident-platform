@@ -17,10 +17,10 @@ namespace OpsRelay.Infrastructure.Persistence.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.25")
+                .HasAnnotation("ProductVersion", "8.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("OpsRelay.Domain.Entities.Incident", b =>
                 {
@@ -149,6 +149,64 @@ namespace OpsRelay.Infrastructure.Persistence.Migrations
                             ResolutionTimeHours = 4,
                             ResponseTimeHours = 1
                         });
+                });
+
+            modelBuilder.Entity("OpsRelay.Infrastructure.Persistence.Entities.OutboxMessage", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("EventType")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTimeOffset>("OccurredOn")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("Payload")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset?>("ProcessedOn")
+                        .HasColumnType("datetimeoffset");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProcessedOn");
+
+                    b.ToTable("OutboxMessages", (string)null);
+                });
+
+            modelBuilder.Entity("OpsRelay.Infrastructure.Persistence.Entities.OutboxMessage", b =>
+                {
+                    b.OwnsOne("OpsRelay.Infrastructure.Persistence.Entities.OutboxMetadata", "Metadata", b1 =>
+                        {
+                            b1.Property<Guid>("OutboxMessageId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<Guid>("AggregateId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("AggregateType")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("CorrelationId")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.HasKey("OutboxMessageId");
+
+                            b1.ToTable("OutboxMessages");
+
+                            b1.ToJson("Metadata");
+
+                            b1.WithOwner()
+                                .HasForeignKey("OutboxMessageId");
+                        });
+
+                    b.Navigation("Metadata")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

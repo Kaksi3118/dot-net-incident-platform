@@ -80,7 +80,7 @@ public class Incident : AggregateRoot<Guid>
 
     public TeamId AssignedTeamId { get; private set; }
 
-    public byte[] RowVersion { get; private set; } = Array.Empty<byte>();
+    public byte[] RowVersion { get; private set; } = [];
 
     public void ChangeStatus(IncidentStatus newStatus, string? reason, DateTimeOffset changedAt)
     {

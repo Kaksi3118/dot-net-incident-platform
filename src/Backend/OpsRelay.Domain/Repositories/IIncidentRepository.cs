@@ -16,4 +16,9 @@ public interface IIncidentRepository
     Task AddAsync(Incident incident, CancellationToken cancellationToken = default);
 
     void Update(Incident incident);
+
+    Task<int> BulkUpdateStatusAsync(
+        IEnumerable<Guid> ids,
+        IncidentStatus status,
+        CancellationToken cancellationToken = default);
 }

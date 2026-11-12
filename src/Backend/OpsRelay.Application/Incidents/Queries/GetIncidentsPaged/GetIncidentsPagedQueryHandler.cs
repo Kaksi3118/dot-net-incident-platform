@@ -6,27 +6,20 @@ using OpsRelay.Domain.Repositories;
 
 namespace OpsRelay.Application.Incidents.Queries.GetIncidentsPaged;
 
-public class GetIncidentsPagedQueryHandler
+public class GetIncidentsPagedQueryHandler(IIncidentRepository incidentRepository)
     : IRequestHandler<GetIncidentsPagedQuery, PagedResultDto<IncidentDto>>
 {
-    private readonly IIncidentRepository _incidentRepository;
-
-    public GetIncidentsPagedQueryHandler(IIncidentRepository incidentRepository)
-    {
-        _incidentRepository = incidentRepository;
-    }
-
     public async Task<PagedResultDto<IncidentDto>> Handle(
         GetIncidentsPagedQuery request,
         CancellationToken cancellationToken)
     {
-        var (items, totalCount) = await _incidentRepository.GetPagedAsync(
+        var (items, totalCount) = await incidentRepository.GetPagedAsync(
             request.PageNumber,
             request.PageSize,
             request.Status,
             cancellationToken);
 
-        var dtos = items.Select(incident => incident.ToDto()).ToList();
+        List<IncidentDto> dtos = [.. items.Select(incident => incident.ToDto())];
 
         return new PagedResultDto<IncidentDto>(
             dtos,

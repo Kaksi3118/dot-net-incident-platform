@@ -13,6 +13,6 @@ public class OpsRelayDbContextFactory : IDesignTimeDbContextFactory<OpsRelayDbCo
         var optionsBuilder = new DbContextOptionsBuilder<OpsRelayDbContext>();
         optionsBuilder.UseSqlServer(DesignTimeConnectionString);
 
-        return new OpsRelayDbContext(optionsBuilder.Options);
+        return new OpsRelayDbContext(optionsBuilder.Options, TimeProvider.System);
     }
 }

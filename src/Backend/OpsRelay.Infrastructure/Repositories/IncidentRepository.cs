@@ -6,17 +6,12 @@ using OpsRelay.Infrastructure.Persistence;
 
 namespace OpsRelay.Infrastructure.Repositories;
 
-public class IncidentRepository : IIncidentRepository
+public class IncidentRepository(
+    OpsRelayDbContext dbContext,
+    TimeProvider timeProvider) : IIncidentRepository
 {
-    private readonly OpsRelayDbContext _dbContext;
-
-    public IncidentRepository(OpsRelayDbContext dbContext)
-    {
-        _dbContext = dbContext;
-    }
-
     public Task<Incident?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default) =>
-        _dbContext.Incidents.FirstOrDefaultAsync(
+        dbContext.Incidents.FirstOrDefaultAsync(
             incident => incident.Id == id,
             cancellationToken);
 
@@ -26,7 +21,7 @@ public class IncidentRepository : IIncidentRepository
         IncidentStatus? status,
         CancellationToken cancellationToken = default)
     {
-        var query = _dbContext.Incidents.AsNoTracking().AsQueryable();
+        var query = dbContext.Incidents.AsNoTracking().AsQueryable();
 
         if (status.HasValue)
         {
@@ -45,7 +40,32 @@ public class IncidentRepository : IIncidentRepository
     }
 
     public async Task AddAsync(Incident incident, CancellationToken cancellationToken = default) =>
-        await _dbContext.Incidents.AddAsync(incident, cancellationToken);
+        await dbContext.Incidents.AddAsync(incident, cancellationToken);
 
-    public void Update(Incident incident) => _dbContext.Incidents.Update(incident);
+    public void Update(Incident incident) => dbContext.Incidents.Update(incident);
+
+    public async Task<int> BulkUpdateStatusAsync(
+        IEnumerable<Guid> ids,
+        IncidentStatus status,
+        CancellationToken cancellationToken = default)
+    {
+        List<Guid> incidentIds = [.. ids];
+
+        if (incidentIds.Count == 0)
+        {
+            return 0;
+        }
+
+        var updatedAt = timeProvider.GetUtcNow();
+
+        return await dbContext.Incidents
+            .Where(incident => incidentIds.Contains(incident.Id))
+            .ExecuteUpdateAsync(
+                setters => setters
+                    .SetProperty(incident => incident.Status, status)
+                    .SetProperty(
+                        incident => EF.Property<DateTimeOffset>(incident, "UpdatedAt"),
+                        updatedAt),
+                cancellationToken);
+    }
 }

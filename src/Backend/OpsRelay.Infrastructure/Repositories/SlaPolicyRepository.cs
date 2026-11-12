@@ -6,25 +6,18 @@ using OpsRelay.Infrastructure.Persistence;
 
 namespace OpsRelay.Infrastructure.Repositories;
 
-public class SlaPolicyRepository : ISlaPolicyRepository
+public class SlaPolicyRepository(OpsRelayDbContext dbContext) : ISlaPolicyRepository
 {
-    private readonly OpsRelayDbContext _dbContext;
-
-    public SlaPolicyRepository(OpsRelayDbContext dbContext)
-    {
-        _dbContext = dbContext;
-    }
-
     public Task<SlaPolicy?> GetByPriorityAsync(
         Priority priority,
         CancellationToken cancellationToken = default) =>
-        _dbContext.SlaPolicies
+        dbContext.SlaPolicies
             .AsNoTracking()
             .FirstOrDefaultAsync(policy => policy.Priority == priority, cancellationToken);
 
     public async Task<IReadOnlyList<SlaPolicy>> GetAllAsync(
         CancellationToken cancellationToken = default) =>
-        await _dbContext.SlaPolicies
+        await dbContext.SlaPolicies
             .AsNoTracking()
             .OrderBy(policy => policy.Priority)
             .ToListAsync(cancellationToken);

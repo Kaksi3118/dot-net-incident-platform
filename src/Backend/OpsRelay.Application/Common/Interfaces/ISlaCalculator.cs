@@ -7,5 +7,8 @@ public interface ISlaCalculator
 {
     bool CanHandle(Priority priority);
 
-    DateTimeOffset CalculateDeadline(DateTimeOffset reportedAt, SlaPolicy policy);
+    DateTimeOffset CalculateDeadline(
+        DateTimeOffset reportedAt,
+        SlaPolicy policy,
+        TimeProvider timeProvider);
 }
