@@ -148,6 +148,7 @@ git config user.email "opsrelay-bot@build.local"
 | 2026-11-12 | OpsRelay Bot | PHASE-02 T014 complete — global split queries, BulkUpdateStatusAsync via ExecuteUpdateAsync, OutboxMessage JSON mapping + migration; verified JSON roundtrip, tracker bypass and full .NET 8 API lifecycle against SQL Server 2022 |
 | 2026-11-12 | OpsRelay Bot | PHASE-02 T015 complete — MADR ADR-001, step-by-step migration playbook and enterprise PR template with risk/verification sections |
 | 2026-11-12 | OpsRelay Bot | PHASE-02 T016 complete — CHANGELOG 0.2.0, migration branch merged with --no-ff into develop, annotated tag v0.2.0 created. Build Release 0 errors/0 warnings, full .NET 8 lifecycle verified |
+| 2026-11-12 | OpsRelay Bot | PHASE-02 debug — fake-time handler/audit test, minimal hosting WebApplicationFactory lifecycle + negative-path test, outbox JSON and ExecuteUpdate checks all passed; cleaned docs snippet, ADR metric and duplicate PR template |
 
 ---
 

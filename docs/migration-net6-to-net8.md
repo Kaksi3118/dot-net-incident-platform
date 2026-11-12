@@ -118,11 +118,14 @@ app.Run();
 public class GetIncidentByIdQueryHandler(IIncidentRepository repository)
     : IRequestHandler<GetIncidentByIdQuery, IncidentDto?>
 {
-    public Task<IncidentDto?> Handle(
+    public async Task<IncidentDto?> Handle(
         GetIncidentByIdQuery request,
-        CancellationToken cancellationToken) =>
-        repository.GetByIdAsync(request.Id, cancellationToken)
-            .ContinueWith(task => task.Result?.ToDto(), cancellationToken);
+        CancellationToken cancellationToken)
+    {
+        var incident = await repository.GetByIdAsync(request.Id, cancellationToken);
+
+        return incident?.ToDto();
+    }
 }
 ```
 

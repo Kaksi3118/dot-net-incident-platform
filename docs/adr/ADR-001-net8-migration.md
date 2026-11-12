@@ -101,7 +101,7 @@ Measured on this repository during the migration:
 | Metric | Result |
 |--------|--------|
 | C# 12 primary-constructor refactor | 9 files changed, 45 insertions / 109 deletions (net -64 lines) |
-| `Startup.cs` removed | 95 lines deleted; registration split into 3 layer extensions |
+| `Startup.cs` removed | 105 lines deleted; registration split into 3 layer extensions |
 | Ambient time calls remaining in business/persistence code | 0 |
 | `new List<T>()` / `Array.Empty<T>()` in refactored paths | 0 |
 | Bulk update tracked entities | 0 (verified `ExecuteUpdateAsync` leaves the tracked entity unchanged while the database row updates) |
