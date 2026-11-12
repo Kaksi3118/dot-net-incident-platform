@@ -8,6 +8,7 @@ namespace OpsRelay.Application.Incidents.Commands.UpdateIncidentStatus;
 public class UpdateIncidentStatusCommandHandler(
     IIncidentRepository incidentRepository,
     IUnitOfWork unitOfWork,
+    TimeProvider timeProvider,
     ILogger<UpdateIncidentStatusCommandHandler> logger)
     : IRequestHandler<UpdateIncidentStatusCommand>
 {
@@ -22,7 +23,7 @@ public class UpdateIncidentStatusCommandHandler(
             throw new KeyNotFoundException($"Incident '{request.Id}' was not found.");
         }
 
-        incident.ChangeStatus(request.NewStatus, request.Reason, DateTimeOffset.UtcNow);
+        incident.ChangeStatus(request.NewStatus, request.Reason, timeProvider.GetUtcNow());
 
         incidentRepository.Update(incident);
         await unitOfWork.CommitAsync(cancellationToken);

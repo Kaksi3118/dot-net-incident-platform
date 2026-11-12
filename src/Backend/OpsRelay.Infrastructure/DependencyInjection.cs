@@ -19,6 +19,8 @@ public static class DependencyInjection
             ?? throw new InvalidOperationException(
                 "Connection string 'DefaultConnection' is not configured.");
 
+        services.AddSingleton(TimeProvider.System);
+
         services.AddDbContext<OpsRelayDbContext>(options =>
             options.UseSqlServer(connectionString));
 

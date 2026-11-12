@@ -15,6 +15,7 @@ public class CreateIncidentCommandHandler(
     ISlaPolicyRepository slaPolicyRepository,
     ISlaCalculator slaCalculator,
     IUnitOfWork unitOfWork,
+    TimeProvider timeProvider,
     ILogger<CreateIncidentCommandHandler> logger)
     : IRequestHandler<CreateIncidentCommand, IncidentDto>
 {
@@ -22,7 +23,7 @@ public class CreateIncidentCommandHandler(
         CreateIncidentCommand request,
         CancellationToken cancellationToken)
     {
-        var reportedAt = DateTimeOffset.UtcNow;
+        var reportedAt = timeProvider.GetUtcNow();
 
         var policy = await slaPolicyRepository.GetByPriorityAsync(
             request.Priority,
@@ -34,7 +35,7 @@ public class CreateIncidentCommandHandler(
                 $"No SLA policy is configured for priority '{request.Priority}'.");
         }
 
-        var slaDeadline = slaCalculator.CalculateDeadline(reportedAt, policy);
+        var slaDeadline = slaCalculator.CalculateDeadline(reportedAt, policy, timeProvider);
 
         var incident = new Incident(
             Guid.NewGuid(),

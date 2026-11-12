@@ -8,6 +8,9 @@ public class DefaultSlaCalculator : ISlaCalculator
 {
     public bool CanHandle(Priority priority) => true;
 
-    public DateTimeOffset CalculateDeadline(DateTimeOffset reportedAt, SlaPolicy policy) =>
+    public DateTimeOffset CalculateDeadline(
+        DateTimeOffset reportedAt,
+        SlaPolicy policy,
+        TimeProvider timeProvider) =>
         reportedAt.AddHours(policy.ResolutionTimeHours);
 }

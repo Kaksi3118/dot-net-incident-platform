@@ -4,13 +4,10 @@ using OpsRelay.Domain.Entities;
 
 namespace OpsRelay.Infrastructure.Persistence;
 
-public class OpsRelayDbContext : DbContext
+public class OpsRelayDbContext(
+    DbContextOptions<OpsRelayDbContext> options,
+    TimeProvider timeProvider) : DbContext(options)
 {
-    public OpsRelayDbContext(DbContextOptions<OpsRelayDbContext> options)
-        : base(options)
-    {
-    }
-
     public DbSet<Incident> Incidents => Set<Incident>();
 
     public DbSet<SlaPolicy> SlaPolicies => Set<SlaPolicy>();
@@ -23,7 +20,7 @@ public class OpsRelayDbContext : DbContext
 
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
-        var timestamp = DateTimeOffset.UtcNow;
+        var timestamp = timeProvider.GetUtcNow();
 
         foreach (var entry in ChangeTracker.Entries<Entity<Guid>>())
         {
