@@ -6,7 +6,9 @@ using OpsRelay.Infrastructure.Persistence;
 
 namespace OpsRelay.Infrastructure.Repositories;
 
-public class IncidentRepository(OpsRelayDbContext dbContext) : IIncidentRepository
+public class IncidentRepository(
+    OpsRelayDbContext dbContext,
+    TimeProvider timeProvider) : IIncidentRepository
 {
     public Task<Incident?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default) =>
         dbContext.Incidents.FirstOrDefaultAsync(
@@ -41,4 +43,29 @@ public class IncidentRepository(OpsRelayDbContext dbContext) : IIncidentReposito
         await dbContext.Incidents.AddAsync(incident, cancellationToken);
 
     public void Update(Incident incident) => dbContext.Incidents.Update(incident);
+
+    public async Task<int> BulkUpdateStatusAsync(
+        IEnumerable<Guid> ids,
+        IncidentStatus status,
+        CancellationToken cancellationToken = default)
+    {
+        List<Guid> incidentIds = [.. ids];
+
+        if (incidentIds.Count == 0)
+        {
+            return 0;
+        }
+
+        var updatedAt = timeProvider.GetUtcNow();
+
+        return await dbContext.Incidents
+            .Where(incident => incidentIds.Contains(incident.Id))
+            .ExecuteUpdateAsync(
+                setters => setters
+                    .SetProperty(incident => incident.Status, status)
+                    .SetProperty(
+                        incident => EF.Property<DateTimeOffset>(incident, "UpdatedAt"),
+                        updatedAt),
+                cancellationToken);
+    }
 }

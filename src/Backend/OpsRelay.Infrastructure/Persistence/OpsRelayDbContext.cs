@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using OpsRelay.Domain.Common;
 using OpsRelay.Domain.Entities;
+using OpsRelay.Infrastructure.Persistence.Entities;
 
 namespace OpsRelay.Infrastructure.Persistence;
 
@@ -11,6 +12,8 @@ public class OpsRelayDbContext(
     public DbSet<Incident> Incidents => Set<Incident>();
 
     public DbSet<SlaPolicy> SlaPolicies => Set<SlaPolicy>();
+
+    public DbSet<OutboxMessage> OutboxMessages => Set<OutboxMessage>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

@@ -22,7 +22,10 @@ public static class DependencyInjection
         services.AddSingleton(TimeProvider.System);
 
         services.AddDbContext<OpsRelayDbContext>(options =>
-            options.UseSqlServer(connectionString));
+            options.UseSqlServer(
+                connectionString,
+                sqlOptions =>
+                    sqlOptions.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery)));
 
         services.AddScoped<IIncidentRepository, IncidentRepository>();
         services.AddScoped<ISlaPolicyRepository, SlaPolicyRepository>();
