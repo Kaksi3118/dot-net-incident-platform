@@ -31,7 +31,10 @@ public static class DependencyInjection
         services.AddScoped<IIncidentRepository, IncidentRepository>();
         services.AddScoped<ISlaPolicyRepository, SlaPolicyRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
-        services.AddScoped<ISlaCalculator, DefaultSlaCalculator>();
+
+        services.AddSingleton<ISlaCalculator, StandardBusinessHoursSlaCalculator>();
+        services.AddSingleton<ISlaCalculator, Critical24x7SlaCalculator>();
+        services.AddSingleton<ISlaCalculatorFactory, SlaCalculatorFactory>();
 
         return services;
     }
