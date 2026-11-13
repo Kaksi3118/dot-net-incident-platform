@@ -2,6 +2,7 @@ using OpsRelay.Domain.Common;
 using OpsRelay.Domain.Enums;
 using OpsRelay.Domain.Events;
 using OpsRelay.Domain.Exceptions;
+using OpsRelay.Domain.Services;
 using OpsRelay.Domain.ValueObjects;
 
 namespace OpsRelay.Domain.Entities;
@@ -82,20 +83,28 @@ public class Incident : AggregateRoot<Guid>
 
     public byte[] RowVersion { get; private set; } = [];
 
-    public void ChangeStatus(IncidentStatus newStatus, string? reason, DateTimeOffset changedAt)
+    public void ChangeStatus(
+        IncidentStatus newStatus,
+        string? reason,
+        TimeProvider timeProvider)
     {
-        var previousStatus = Status;
-
-        if (previousStatus == newStatus)
+        if (!IncidentStateMachine.CanTransition(Status, newStatus))
         {
-            return;
+            throw new InvalidStatusTransitionException(Status, newStatus);
         }
+
+        var previousStatus = Status;
+        var changedAt = timeProvider.GetUtcNow();
 
         Status = newStatus;
 
         if (newStatus == IncidentStatus.Resolved)
         {
             ResolvedAt = changedAt;
+        }
+        else if (previousStatus == IncidentStatus.Resolved)
+        {
+            ResolvedAt = null;
         }
 
         AddDomainEvent(

@@ -92,7 +92,7 @@ git config user.email "opsrelay-bot@build.local"
 | T018 | StandardBusinessHoursSlaCalculator | `feature/T018-business-hours-sla` | ✅ Done | 2026-11-12 |
 | T019 | Critical24x7SlaCalculator | `feature/T019-247-sla` | ✅ Done | 2026-11-12 |
 | T020 | SlaCalculatorFactory / strategy selector | `feature/T020-sla-factory` | ✅ Done | 2026-11-12 |
-| T021 | IncidentStateMachine — state transitions & guard clauses | `feature/T021-state-machine` | ⬜ | — |
+| T021 | IncidentStateMachine — state transitions & guard clauses | `feature/T021-state-machine` | ✅ Done | 2026-11-12 |
 | T022 | Domain Event Dispatcher & Outbox pattern | `feature/T022-domain-events` | ⬜ | — |
 | T023 | Unit Tests — xUnit, FluentAssertions, NSubstitute, FakeTimeProvider | `feature/T023-unit-tests` | ⬜ | — |
 | T024 | Tag v0.3.0, coverage gate ≥80% documented | `develop` | ⬜ | — |
@@ -154,6 +154,7 @@ git config user.email "opsrelay-bot@build.local"
 | 2026-11-12 | OpsRelay Bot | PHASE-03 T018 complete — StandardBusinessHoursSlaCalculator (Mon-Fri 09:00-17:00 UTC) with weekend/night rollover; all plan scenarios verified |
 | 2026-11-12 | OpsRelay Bot | PHASE-03 T019 complete — Critical24x7SlaCalculator for High/Critical; Friday 23:00 +4h resolves Saturday 03:00, includes non-working hours |
 | 2026-11-12 | OpsRelay Bot | PHASE-03 T020 complete — SlaCalculatorFactory resolves strategies from DI, handler uses factory, singleton registrations, informative failure for unknown priority |
+| 2026-11-12 | OpsRelay Bot | PHASE-03 T021 complete — IncidentStateMachine transition table, InvalidStatusTransitionException, ChangeStatus guard clauses, ResolvedAt handling and status-change event |
 
 ---
 

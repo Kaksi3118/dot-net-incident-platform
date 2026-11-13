@@ -23,7 +23,7 @@ public class UpdateIncidentStatusCommandHandler(
             throw new KeyNotFoundException($"Incident '{request.Id}' was not found.");
         }
 
-        incident.ChangeStatus(request.NewStatus, request.Reason, timeProvider.GetUtcNow());
+        incident.ChangeStatus(request.NewStatus, request.Reason, timeProvider);
 
         incidentRepository.Update(incident);
         await unitOfWork.CommitAsync(cancellationToken);
