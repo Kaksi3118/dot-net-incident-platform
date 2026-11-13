@@ -6,6 +6,7 @@ using OpsRelay.Application.Mappings;
 using OpsRelay.Domain.Entities;
 using OpsRelay.Domain.Exceptions;
 using OpsRelay.Domain.Repositories;
+using OpsRelay.Domain.Services;
 using OpsRelay.Domain.ValueObjects;
 
 namespace OpsRelay.Application.Incidents.Commands.CreateIncident;
@@ -35,7 +36,12 @@ public class CreateIncidentCommandHandler(
                 $"No SLA policy is configured for priority '{request.Priority}'.");
         }
 
-        var slaDeadline = slaCalculator.CalculateDeadline(reportedAt, policy, timeProvider);
+        var slaCalculation = slaCalculator.CalculateDeadline(
+            reportedAt,
+            policy,
+            timeProvider);
+
+        var slaDeadline = slaCalculation.ResolutionDeadline;
 
         var incident = new Incident(
             Guid.NewGuid(),

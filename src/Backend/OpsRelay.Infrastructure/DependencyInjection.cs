@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using OpsRelay.Application.Common.Interfaces;
 using OpsRelay.Domain.Repositories;
+using OpsRelay.Domain.Services;
 using OpsRelay.Infrastructure.Persistence;
 using OpsRelay.Infrastructure.Repositories;
 using OpsRelay.Infrastructure.Services;
