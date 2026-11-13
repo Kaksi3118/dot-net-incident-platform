@@ -89,7 +89,7 @@ git config user.email "opsrelay-bot@build.local"
 | Task | Title | Branch | Status | Last Updated |
 |------|-------|--------|--------|-------------|
 | T017 | ISlaCalculator strategy interface & SlaCalculationResult | `feature/T017-sla-interface` | ✅ Done | 2026-11-12 |
-| T018 | StandardBusinessHoursSlaCalculator | `feature/T018-business-hours-sla` | ⬜ | — |
+| T018 | StandardBusinessHoursSlaCalculator | `feature/T018-business-hours-sla` | ✅ Done | 2026-11-12 |
 | T019 | Critical24x7SlaCalculator | `feature/T019-247-sla` | ⬜ | — |
 | T020 | SlaCalculatorFactory / strategy selector | `feature/T020-sla-factory` | ⬜ | — |
 | T021 | IncidentStateMachine — state transitions & guard clauses | `feature/T021-state-machine` | ⬜ | — |
@@ -151,6 +151,7 @@ git config user.email "opsrelay-bot@build.local"
 | 2026-11-12 | OpsRelay Bot | PHASE-02 debug — fake-time handler/audit test, minimal hosting WebApplicationFactory lifecycle + negative-path test, outbox JSON and ExecuteUpdate checks all passed; cleaned docs snippet, ADR metric and duplicate PR template |
 | 2026-11-12 | OpsRelay Bot | PHASE-01/02 cross-audit — acceptance criteria re-checked against tags v0.1.0/v0.2.0. Domain invariants, value equality, seeded SLA policies, repository/UnitOfWork persistence, shadow audits, paging, Swagger, health and full HTTP lifecycle all pass. State-file branch names corrected. Note: v0.1.0 tag was created at T007 per plan, so it does not include T008; Phase 2 branch included the post-tag Phase 1 debug fixes |
 | 2026-11-12 | OpsRelay Bot | PHASE-03 T017 complete — ISlaCalculator moved to Domain/Services with SlaCalculationResult; temporary DefaultSlaCalculator adapter keeps build green |
+| 2026-11-12 | OpsRelay Bot | PHASE-03 T018 complete — StandardBusinessHoursSlaCalculator (Mon-Fri 09:00-17:00 UTC) with weekend/night rollover; all plan scenarios verified |
 
 ---
 
