@@ -14,7 +14,7 @@ namespace OpsRelay.Application.Incidents.Commands.CreateIncident;
 public class CreateIncidentCommandHandler(
     IIncidentRepository incidentRepository,
     ISlaPolicyRepository slaPolicyRepository,
-    ISlaCalculator slaCalculator,
+    ISlaCalculatorFactory slaCalculatorFactory,
     IUnitOfWork unitOfWork,
     TimeProvider timeProvider,
     ILogger<CreateIncidentCommandHandler> logger)
@@ -36,6 +36,8 @@ public class CreateIncidentCommandHandler(
                 $"No SLA policy is configured for priority '{request.Priority}'.");
         }
 
+        var slaCalculator = slaCalculatorFactory.GetCalculator(request.Priority);
+
         var slaCalculation = slaCalculator.CalculateDeadline(
             reportedAt,
             policy,
@@ -56,10 +58,11 @@ public class CreateIncidentCommandHandler(
         await unitOfWork.CommitAsync(cancellationToken);
 
         logger.LogInformation(
-            "Incident {IncidentId} created with priority {Priority} and SLA deadline {SlaDeadline}",
+            "Incident {IncidentId} created with priority {Priority}, SLA deadline {SlaDeadline} using {SlaStrategy}",
             incident.Id,
             incident.Priority,
-            incident.SlaDeadline);
+            incident.SlaDeadline,
+            slaCalculation.StrategyName);
 
         return incident.ToDto();
     }
