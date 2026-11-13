@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using OpsRelay.Application.Common.Interfaces;
 using OpsRelay.Domain.Repositories;
 using OpsRelay.Domain.Services;
+using OpsRelay.Infrastructure.Events;
 using OpsRelay.Infrastructure.Persistence;
 using OpsRelay.Infrastructure.Repositories;
 using OpsRelay.Infrastructure.Services;
@@ -30,6 +31,7 @@ public static class DependencyInjection
 
         services.AddScoped<IIncidentRepository, IncidentRepository>();
         services.AddScoped<ISlaPolicyRepository, SlaPolicyRepository>();
+        services.AddScoped<IDomainEventDispatcher, MediatRDomainEventDispatcher>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         services.AddSingleton<ISlaCalculator, StandardBusinessHoursSlaCalculator>();
