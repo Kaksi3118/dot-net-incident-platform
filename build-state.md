@@ -93,7 +93,7 @@ git config user.email "opsrelay-bot@build.local"
 | T019 | Critical24x7SlaCalculator | `feature/T019-247-sla` | ✅ Done | 2026-11-12 |
 | T020 | SlaCalculatorFactory / strategy selector | `feature/T020-sla-factory` | ✅ Done | 2026-11-12 |
 | T021 | IncidentStateMachine — state transitions & guard clauses | `feature/T021-state-machine` | ✅ Done | 2026-11-12 |
-| T022 | Domain Event Dispatcher & Outbox pattern | `feature/T022-domain-events` | ⬜ | — |
+| T022 | Domain Event Dispatcher & Outbox pattern | `feature/T022-domain-events` | ✅ Done | 2026-11-12 |
 | T023 | Unit Tests — xUnit, FluentAssertions, NSubstitute, FakeTimeProvider | `feature/T023-unit-tests` | ⬜ | — |
 | T024 | Tag v0.3.0, coverage gate ≥80% documented | `develop` | ⬜ | — |
 
@@ -155,6 +155,7 @@ git config user.email "opsrelay-bot@build.local"
 | 2026-11-12 | OpsRelay Bot | PHASE-03 T019 complete — Critical24x7SlaCalculator for High/Critical; Friday 23:00 +4h resolves Saturday 03:00, includes non-working hours |
 | 2026-11-12 | OpsRelay Bot | PHASE-03 T020 complete — SlaCalculatorFactory resolves strategies from DI, handler uses factory, singleton registrations, informative failure for unknown priority |
 | 2026-11-12 | OpsRelay Bot | PHASE-03 T021 complete — IncidentStateMachine transition table, InvalidStatusTransitionException, ChangeStatus guard clauses, ResolvedAt handling and status-change event |
+| 2026-11-12 | OpsRelay Bot | PHASE-03 T022 complete — MediatR domain event dispatcher with generic notifications, transactional outbox writes in UnitOfWork, event clearing, dispatch after commit; JSON payload/metadata, rollback verified against SQL Server |
 
 ---
 
