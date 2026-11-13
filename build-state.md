@@ -95,7 +95,7 @@ git config user.email "opsrelay-bot@build.local"
 | T021 | IncidentStateMachine — state transitions & guard clauses | `feature/T021-state-machine` | ✅ Done | 2026-11-12 |
 | T022 | Domain Event Dispatcher & Outbox pattern | `feature/T022-domain-events` | ✅ Done | 2026-11-12 |
 | T023 | Unit Tests — xUnit, FluentAssertions, NSubstitute, FakeTimeProvider | `feature/T023-unit-tests` | ✅ Done | 2026-11-12 |
-| T024 | Tag v0.3.0, coverage gate ≥80% documented | `develop` | ⬜ | — |
+| T024 | Tag v0.3.0, coverage gate ≥80% documented | `develop` | ✅ Done | 2026-11-12 |
 
 ### PHASE-04: Angular 17+ Client Development
 
@@ -157,6 +157,7 @@ git config user.email "opsrelay-bot@build.local"
 | 2026-11-12 | OpsRelay Bot | PHASE-03 T021 complete — IncidentStateMachine transition table, InvalidStatusTransitionException, ChangeStatus guard clauses, ResolvedAt handling and status-change event |
 | 2026-11-12 | OpsRelay Bot | PHASE-03 T022 complete — MediatR domain event dispatcher with generic notifications, transactional outbox writes in UnitOfWork, event clearing, dispatch after commit; JSON payload/metadata, rollback verified against SQL Server |
 | 2026-11-12 | OpsRelay Bot | PHASE-03 T023 complete — 99 unit tests covering SLA strategies/factory, full 36-transition state matrix, aggregate invariants, handlers, validators, behaviors, mapping; runs in <1s with FakeTimeProvider/NSubstitute |
+| 2026-11-12 | OpsRelay Bot | PHASE-03 T024 complete — coverage gate passed at 94.68% line (Domain 93.15%, Application 96.09%), coverage report documented, CHANGELOG 0.3.0, tag v0.3.0 |
 
 ---
 

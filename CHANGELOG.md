@@ -11,6 +11,46 @@ _No unreleased changes yet._
 
 ---
 
+## [0.3.0] - 2026-11-12
+
+SLA calculation engine, incident state machine and transactional outbox.
+
+### Added
+- Domain-level `ISlaCalculator` Strategy interface and `SlaCalculationResult`
+  record with response/resolution deadlines and strategy metadata.
+- `StandardBusinessHoursSlaCalculator` for Low/Medium priorities
+  (Monday-Friday, 09:00-17:00 UTC) with night and weekend rollover.
+- `Critical24x7SlaCalculator` for High/Critical priorities with continuous
+  calendar-time calculation.
+- `SlaCalculatorFactory` resolving the correct strategy from DI.
+- `IncidentStateMachine` with a 36-transition lifecycle matrix.
+- `InvalidStatusTransitionException` for guarded status changes.
+- `IDomainEventDispatcher` and `MediatRDomainEventDispatcher` using typed
+  MediatR notifications.
+- Transactional outbox integration in `UnitOfWork`: domain events are persisted
+  as JSON `OutboxMessages` in the same transaction, cleared, then dispatched.
+- 99 xUnit tests covering SLA strategies, the full state matrix, aggregate
+  invariants, handlers, validators, behaviors, mappings and the dispatcher.
+- `docs/coverage-report.md` with class-level coverage evidence.
+
+### Changed
+- `CreateIncidentCommandHandler` now selects a strategy through
+  `ISlaCalculatorFactory` and stores the calculated resolution deadline.
+- `Incident.ChangeStatus` enforces the state machine and uses `TimeProvider`;
+  reopening a resolved incident clears `ResolvedAt`.
+- `UnitOfWork.CommitAsync` writes outbox messages and dispatches domain events
+  after the transaction commits.
+
+### Fixed
+- Invalid lifecycle transitions now surface as RFC 7807 `400` responses instead
+  of being silently accepted.
+
+### Performance
+- Unit suite runs in under one second with no external dependencies.
+- Domain/Application line coverage is 94.68% (gate: 80%).
+
+---
+
 ## [0.2.0] - 2026-11-12
 
 .NET 8 LTS and C# 12 modernization of the OpsRelay backend.
@@ -131,6 +171,7 @@ Initial .NET 6 Clean Architecture baseline release.
 
 ---
 
-[Unreleased]: https://github.com/Kaksi3118/dot-net-incident-platform/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/Kaksi3118/dot-net-incident-platform/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/Kaksi3118/dot-net-incident-platform/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/Kaksi3118/dot-net-incident-platform/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/Kaksi3118/dot-net-incident-platform/releases/tag/v0.1.0
