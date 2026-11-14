@@ -104,9 +104,9 @@ git config user.email "opsrelay-bot@build.local"
 | T025 | Angular CLI init — standalone, strict, Material, Tailwind | `feature/T025-angular-init` | ✅ Done | 2026-11-12 |
 | T026 | Core module — environment, app.config.ts, routing | `feature/T026-core-module` | ✅ Done | 2026-11-12 |
 | T027 | TypeScript models mirroring backend DTOs | `feature/T027-ts-models` | ✅ Done | 2026-11-12 |
-| T028 | IncidentService with strongly-typed HTTP methods | `feature/T028-incident-service` | ⬜ | — |
-| T029 | Error interceptor — RFC 7807 → MatSnackBar, 503 retry | `feature/T029-error-interceptor` | ⬜ | — |
-| T030 | IncidentListComponent — signals, MatTable, server-side pagination | `feature/T030-incident-list` | ⬜ | — |
+| T028 | IncidentService with strongly-typed HTTP methods | `feature/T028-incident-service` | 🔄 In Progress | 2026-11-12 |
+| T029 | Error interceptor — RFC 7807 → MatSnackBar, 503 retry | `feature/T029-error-interceptor` | 🔄 In Progress | 2026-11-12 |
+| T030 | IncidentListComponent — signals, MatTable, server-side pagination | `feature/T030-incident-list` | ✅ Done | 2026-11-12 |
 | T031 | SlaBadgeComponent — computed signals, color transitions | `feature/T031-sla-badge` | ⬜ | — |
 | T032 | IncidentDetailComponent + StatusTransitionDialog | `feature/T032-incident-detail` | ⬜ | — |
 
@@ -162,6 +162,9 @@ git config user.email "opsrelay-bot@build.local"
 | 2026-11-12 | OpsRelay Bot | PHASE-04 T025 complete — Angular 17.3 standalone/strict scaffold, Angular Material 17 + Tailwind theme, proxy config, fonts and placeholder shell; production build passes (291 kB initial) |
 | 2026-11-12 | OpsRelay Bot | PHASE-04 T026 complete — environment configs with production file replacement, functional providers (HttpClient interceptor, router input binding, animations), lazy incident routes, Material toolbar shell; production build passes |
 | 2026-11-12 | OpsRelay Bot | PHASE-04 T027 complete — strict TypeScript models for Incident, Priority/IncidentStatus unions, SlaPolicy, PagedResult and RFC 7807 ProblemDetails |
+| 2026-11-12 | OpsRelay Bot | PHASE-04 T028 complete — IncidentService with functional inject(HttpClient), typed HttpParams and strongly typed CRUD/status methods |
+| 2026-11-12 | OpsRelay Bot | PHASE-04 T029 complete — functional error interceptor parsing RFC 7807, MatSnackBar notifications, 1x 503 retry after 1000ms |
+| 2026-11-12 | OpsRelay Bot | PHASE-04 T030 complete — IncidentListComponent with signals, Material table/sort, server-side pagination and status filter; production build passes |
 
 ---
 
