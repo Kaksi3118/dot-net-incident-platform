@@ -103,7 +103,7 @@ git config user.email "opsrelay-bot@build.local"
 |------|-------|--------|--------|-------------|
 | T025 | Angular CLI init — standalone, strict, Material, Tailwind | `feature/T025-angular-init` | ✅ Done | 2026-11-12 |
 | T026 | Core module — environment, app.config.ts, routing | `feature/T026-core-module` | ✅ Done | 2026-11-12 |
-| T027 | TypeScript models mirroring backend DTOs | `feature/T027-ts-models` | ⬜ | — |
+| T027 | TypeScript models mirroring backend DTOs | `feature/T027-ts-models` | ✅ Done | 2026-11-12 |
 | T028 | IncidentService with strongly-typed HTTP methods | `feature/T028-incident-service` | ⬜ | — |
 | T029 | Error interceptor — RFC 7807 → MatSnackBar, 503 retry | `feature/T029-error-interceptor` | ⬜ | — |
 | T030 | IncidentListComponent — signals, MatTable, server-side pagination | `feature/T030-incident-list` | ⬜ | — |
@@ -161,6 +161,7 @@ git config user.email "opsrelay-bot@build.local"
 | 2026-11-12 | OpsRelay Bot | PHASE-03 debug/integration — 99 unit tests green; external WebApplicationFactory + SQL Server audit verified Phase 1/2/3 wiring: health, Swagger, full lifecycle, invalid transition 400 problem+json, Critical 4h SLA, Low-priority business-hours SLA, paging/filtering, 4 outbox rows with JSON metadata, and real MediatR notification dispatch. No code defects found |
 | 2026-11-12 | OpsRelay Bot | PHASE-04 T025 complete — Angular 17.3 standalone/strict scaffold, Angular Material 17 + Tailwind theme, proxy config, fonts and placeholder shell; production build passes (291 kB initial) |
 | 2026-11-12 | OpsRelay Bot | PHASE-04 T026 complete — environment configs with production file replacement, functional providers (HttpClient interceptor, router input binding, animations), lazy incident routes, Material toolbar shell; production build passes |
+| 2026-11-12 | OpsRelay Bot | PHASE-04 T027 complete — strict TypeScript models for Incident, Priority/IncidentStatus unions, SlaPolicy, PagedResult and RFC 7807 ProblemDetails |
 
 ---
 
