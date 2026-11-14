@@ -167,6 +167,7 @@ git config user.email "opsrelay-bot@build.local"
 | 2026-11-12 | OpsRelay Bot | PHASE-04 T030 complete — IncidentListComponent with signals, Material table/sort, server-side pagination and status filter; production build passes |
 | 2026-11-12 | OpsRelay Bot | PHASE-04 T031 complete — SlaBadgeComponent with percentage-based color thresholds, 60s reactive clock and readable durations |
 | 2026-11-12 | OpsRelay Bot | PHASE-04 T032 complete — IncidentDetailComponent with Material timeline stepper, allowed-transition computation and typed reactive status dialog; production build passes |
+| 2026-11-12 | OpsRelay Bot | PHASE-04 debug/integration — fixed detail loading (`effect` signal-write bug) with `toObservable`; added 15 frontend specs (18 total); Playwright + Edge E2E verified list, SLA badge, detail, status dialog, snackbar, pagination, filter and sort against the live .NET API through the dev proxy. Production build clean (643 kB, no budget warning) |
 
 ---
 
