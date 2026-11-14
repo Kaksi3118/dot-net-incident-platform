@@ -1,0 +1,128 @@
+<section class="space-y-6">
+  <div class="flex flex-wrap items-center justify-between gap-3">
+    <a mat-stroked-button color="primary" routerLink="/incidents">Back to incidents</a>
+
+    <button
+      mat-flat-button
+      color="primary"
+      type="button"
+      [disabled]="!incident() || allowedStatuses().length === 0"
+      (click)="openStatusDialog()"
+    >
+      Change status
+    </button>
+  </div>
+
+  <div *ngIf="loading()" class="flex justify-center rounded-xl bg-white p-12 shadow-sm">
+    <mat-spinner diameter="48"></mat-spinner>
+  </div>
+
+  <ng-container *ngIf="!loading() && incident() as currentIncident">
+    <mat-card class="!rounded-xl">
+      <mat-card-header class="!block">
+        <div class="flex flex-wrap items-start justify-between gap-3">
+          <div>
+            <mat-card-title class="!text-2xl">{{ currentIncident.title }}</mat-card-title>
+            <mat-card-subtitle class="!mt-2">
+              Reported {{ currentIncident.reportedAt | date: 'medium' }}
+            </mat-card-subtitle>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-2">
+            <span
+              class="inline-flex rounded-full px-2.5 py-1 text-xs font-semibold"
+              [ngClass]="priorityClass(currentIncident.priority)"
+            >
+              {{ currentIncident.priority }}
+            </span>
+            <span
+              class="inline-flex rounded-full px-2.5 py-1 text-xs font-semibold"
+              [ngClass]="statusClass(currentIncident.status)"
+            >
+              {{ currentIncident.status }}
+            </span>
+          </div>
+        </div>
+      </mat-card-header>
+
+      <mat-card-content class="!mt-6 space-y-6">
+        <p class="text-base leading-7 text-slate-700">{{ currentIncident.description }}</p>
+
+        <dl class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div class="rounded-lg bg-slate-50 p-3">
+            <dt class="text-xs font-semibold uppercase tracking-wide text-slate-500">
+              Assigned team
+            </dt>
+            <dd class="mt-1 text-sm font-medium text-slate-900">
+              {{ currentIncident.assignedTeamId }}
+            </dd>
+          </div>
+
+          <div class="rounded-lg bg-slate-50 p-3">
+            <dt class="text-xs font-semibold uppercase tracking-wide text-slate-500">
+              SLA deadline
+            </dt>
+            <dd class="mt-1">
+              <app-sla-badge
+                [slaDeadline]="currentIncident.slaDeadline"
+                [reportedAt]="currentIncident.reportedAt"
+              />
+            </dd>
+          </div>
+
+          <div class="rounded-lg bg-slate-50 p-3">
+            <dt class="text-xs font-semibold uppercase tracking-wide text-slate-500">
+              Reported
+            </dt>
+            <dd class="mt-1 text-sm font-medium text-slate-900">
+              {{ currentIncident.reportedAt | date: 'short' }}
+            </dd>
+          </div>
+
+          <div class="rounded-lg bg-slate-50 p-3">
+            <dt class="text-xs font-semibold uppercase tracking-wide text-slate-500">
+              Resolved
+            </dt>
+            <dd class="mt-1 text-sm font-medium text-slate-900">
+              {{ currentIncident.resolvedAt ? (currentIncident.resolvedAt | date: 'short') : 'Not resolved' }}
+            </dd>
+          </div>
+        </dl>
+
+        <mat-divider></mat-divider>
+
+        <section>
+          <h3 class="text-base font-semibold text-slate-900">Lifecycle timeline</h3>
+          <p class="mt-1 text-sm text-slate-600">
+            The current status is highlighted in the incident workflow.
+          </p>
+
+          <mat-stepper
+            orientation="vertical"
+            [selectedIndex]="currentStepIndex()"
+            class="mt-4"
+          >
+            <mat-step
+              *ngFor="let step of lifecycleSteps; let index = index"
+              [label]="step"
+              [completed]="index < currentStepIndex()"
+              [editable]="false"
+            >
+              <p class="text-sm text-slate-600">{{ stepDescription(step) }}</p>
+            </mat-step>
+          </mat-stepper>
+        </section>
+      </mat-card-content>
+    </mat-card>
+  </ng-container>
+
+  <div
+    *ngIf="!loading() && !incident()"
+    class="rounded-xl border border-red-200 bg-red-50 p-8 text-center"
+  >
+    <p class="text-base font-semibold text-red-800">Incident not found</p>
+    <p class="mt-2 text-sm text-red-700">
+      The incident may have been removed or the identifier is invalid.
+    </p>
+  </div>
+</section>
