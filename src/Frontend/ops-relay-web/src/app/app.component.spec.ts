@@ -1,3 +1,4 @@
+import { provideRouter } from '@angular/router';
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 
@@ -5,25 +6,25 @@ describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [AppComponent],
+      providers: [provideRouter([])]
     }).compileComponents();
   });
 
   it('should create the app', () => {
     const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
+    expect(fixture.componentInstance).toBeTruthy();
   });
 
-  it(`should have the 'ops-relay-web' title`, () => {
+  it('should expose the OpsRelay title', () => {
     const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('ops-relay-web');
+    expect(fixture.componentInstance.title).toEqual('OpsRelay');
   });
 
-  it('should render title', () => {
+  it('should render the toolbar brand', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, ops-relay-web');
+
+    const toolbar = fixture.nativeElement.querySelector('mat-toolbar') as HTMLElement;
+    expect(toolbar.textContent).toContain('OpsRelay');
   });
 });
