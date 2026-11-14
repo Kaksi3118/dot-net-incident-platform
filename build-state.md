@@ -166,6 +166,7 @@ git config user.email "opsrelay-bot@build.local"
 | 2026-11-12 | OpsRelay Bot | PHASE-04 T029 complete — functional error interceptor parsing RFC 7807, MatSnackBar notifications, 1x 503 retry after 1000ms |
 | 2026-11-12 | OpsRelay Bot | PHASE-04 T030 complete — IncidentListComponent with signals, Material table/sort, server-side pagination and status filter; production build passes |
 | 2026-11-12 | OpsRelay Bot | PHASE-04 T031 complete — SlaBadgeComponent with percentage-based color thresholds, 60s reactive clock and readable durations |
+| 2026-11-12 | OpsRelay Bot | PHASE-04 T032 complete — IncidentDetailComponent with Material timeline stepper, allowed-transition computation and typed reactive status dialog; production build passes |
 
 ---
 
