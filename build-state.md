@@ -107,8 +107,8 @@ git config user.email "opsrelay-bot@build.local"
 | T028 | IncidentService with strongly-typed HTTP methods | `feature/T028-incident-service` | 🔄 In Progress | 2026-11-12 |
 | T029 | Error interceptor — RFC 7807 → MatSnackBar, 503 retry | `feature/T029-error-interceptor` | 🔄 In Progress | 2026-11-12 |
 | T030 | IncidentListComponent — signals, MatTable, server-side pagination | `feature/T030-incident-list` | ✅ Done | 2026-11-12 |
-| T031 | SlaBadgeComponent — computed signals, color transitions | `feature/T031-sla-badge` | ⬜ | — |
-| T032 | IncidentDetailComponent + StatusTransitionDialog | `feature/T032-incident-detail` | ⬜ | — |
+| T031 | SlaBadgeComponent — computed signals, color transitions | `feature/T031-sla-badge` | ✅ Done | 2026-11-12 |
+| T032 | IncidentDetailComponent + StatusTransitionDialog | `feature/T032-incident-detail` | ✅ Done | 2026-11-12 |
 
 ### PHASE-05: Integration Testing, Docker & Portfolio Polish
 
@@ -165,6 +165,7 @@ git config user.email "opsrelay-bot@build.local"
 | 2026-11-12 | OpsRelay Bot | PHASE-04 T028 complete — IncidentService with functional inject(HttpClient), typed HttpParams and strongly typed CRUD/status methods |
 | 2026-11-12 | OpsRelay Bot | PHASE-04 T029 complete — functional error interceptor parsing RFC 7807, MatSnackBar notifications, 1x 503 retry after 1000ms |
 | 2026-11-12 | OpsRelay Bot | PHASE-04 T030 complete — IncidentListComponent with signals, Material table/sort, server-side pagination and status filter; production build passes |
+| 2026-11-12 | OpsRelay Bot | PHASE-04 T031 complete — SlaBadgeComponent with percentage-based color thresholds, 60s reactive clock and readable durations |
 
 ---
 
