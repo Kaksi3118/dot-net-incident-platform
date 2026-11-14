@@ -55,3 +55,15 @@ body {
 .sla-breached {
   @apply bg-red-600 text-white;
 }
+
+.snackbar-error {
+  --mdc-snackbar-container-color: #b91c1c;
+  --mdc-snackbar-supporting-text-color: #ffffff;
+  --mat-mdc-snack-bar-button-color: #ffffff;
+}
+
+.snackbar-success {
+  --mdc-snackbar-container-color: #047857;
+  --mdc-snackbar-supporting-text-color: #ffffff;
+  --mat-mdc-snack-bar-button-color: #ffffff;
+}
