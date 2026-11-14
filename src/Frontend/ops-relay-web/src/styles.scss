@@ -1,0 +1,57 @@
+@use '@angular/material' as mat;
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@include mat.core();
+
+$opsrelay-primary: mat.define-palette(mat.$indigo-palette);
+$opsrelay-accent: mat.define-palette(mat.$amber-palette, A200, A100, A400);
+$opsrelay-warn: mat.define-palette(mat.$red-palette);
+
+$opsrelay-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $opsrelay-primary,
+      accent: $opsrelay-accent,
+      warn: $opsrelay-warn
+    ),
+    typography: mat.define-typography-config(),
+    density: 0
+  )
+);
+
+@include mat.all-component-themes($opsrelay-theme);
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: #f8fafc;
+  color: #0f172a;
+}
+
+.sla-badge {
+  @apply inline-flex items-center rounded-full px-2.5 py-1 text-xs font-semibold;
+}
+
+.sla-green {
+  @apply bg-emerald-100 text-emerald-800;
+}
+
+.sla-amber {
+  @apply bg-amber-100 text-amber-800;
+}
+
+.sla-red {
+  @apply bg-red-100 text-red-800;
+}
+
+.sla-breached {
+  @apply bg-red-600 text-white;
+}
