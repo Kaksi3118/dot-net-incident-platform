@@ -1,9 +1,21 @@
-<main class="flex min-h-screen items-center justify-center bg-slate-100 px-6">
-  <section class="max-w-xl rounded-2xl bg-white p-10 text-center shadow-lg">
-    <p class="text-sm font-semibold uppercase tracking-widest text-indigo-600">OpsRelay</p>
-    <h1 class="mt-3 text-3xl font-bold text-slate-900">Incident Lifecycle &amp; SLA Management</h1>
-    <p class="mt-4 text-slate-600">
-      Angular client scaffold is ready. Incident dashboard coming next.
-    </p>
-  </section>
+<mat-toolbar color="primary" class="sticky top-0 z-10 shadow-md">
+  <a routerLink="/incidents" class="flex items-center gap-2 text-white no-underline">
+    <span class="text-lg font-bold tracking-wide">OpsRelay</span>
+  </a>
+  <span class="ml-4 hidden text-sm opacity-80 sm:inline">
+    Incident Lifecycle &amp; SLA Management
+  </span>
+  <span class="flex-1"></span>
+  <a
+    mat-button
+    routerLink="/incidents"
+    routerLinkActive="bg-white/15"
+    class="text-white"
+  >
+    Incidents
+  </a>
+</mat-toolbar>
+
+<main class="mx-auto w-full max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+  <router-outlet />
 </main>
