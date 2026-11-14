@@ -7,7 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-_No unreleased changes yet._
+### Added
+- Angular 17 standalone frontend with strict TypeScript, Angular Material 17,
+  Tailwind CSS and SCSS theming.
+- Lazy-loaded incident list and detail routes with functional providers,
+  `withComponentInputBinding()` and the `/api` development proxy.
+- Typed `IncidentService`, RFC 7807-aware functional error interceptor,
+  MatSnackBar notifications and a single 503 retry after one second.
+- Signal-driven incident list with Material table, sorting, server-side
+  pagination and status filtering.
+- Reactive SLA countdown badge with percentage-based color thresholds.
+- Incident detail view with Material stepper timeline and a typed reactive
+  status-transition dialog.
+- 18 frontend Karma specs covering service contracts, error handling, SLA badge
+  thresholds and dialog validation.
+
+### Fixed
+- Incident detail now loads on route changes via `toObservable` and
+  `takeUntilDestroyed` instead of writing signals inside an Angular effect.
 
 ---
 

@@ -3,11 +3,14 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
-  effect,
   inject,
   input,
   signal
 } from '@angular/core';
+import {
+  takeUntilDestroyed,
+  toObservable
+} from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
@@ -93,10 +96,9 @@ export class IncidentDetailComponent {
   });
 
   constructor() {
-    effect(() => {
-      const id = this.id();
-      this.loadIncident(id);
-    });
+    toObservable(this.id)
+      .pipe(takeUntilDestroyed())
+      .subscribe(id => this.loadIncident(id));
   }
 
   loadIncident(id: string = this.id()): void {
